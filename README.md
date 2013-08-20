@@ -21,7 +21,14 @@ commited to the repo
 
 ## Install
 
-TODO
+Run:
+
+    $ bundle install --without test
+
+After that add the `bin` directory to your `PATH` variable.
+
+_Or_ make a symlink to the `bin/blog` file and place it somewhere along
+`/usr/local/bin` or in any directory that is on your `PATH` variable.
 
 ## Commands
 

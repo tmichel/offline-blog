@@ -25,4 +25,11 @@ TODO
 
 ## Commands
 
-TODO
+### blog new TITLE
+
+Creates a new blog post in the directory we are currently in. It figures out the
+number for the post, creates a the file and tries to open it. It also inserts
+the title on the top of the file.
+
+At the moment it uses the `sublime` command to open the editor. If the command
+is not available nothing happens.

@@ -8,9 +8,10 @@ class Post
   #
   # @param  dir String The directory where the post should be saved to.
   # @param  title String The title of the new post.
-  def initialize(dir, title)
+  def initialize(dir, title, path = nil)
     @dir = dir
     @title = title
+    @path = path
   end
 
   # Creates a new blog post.
@@ -18,15 +19,23 @@ class Post
   # It figures out the next number for a post. It creates an empty file. Fills
   # out the title and opens the specified text editor (it defaults to sublime).
   #
-  def create
+  # WARNING: it overrides the original file if exists
+  #
+  def create!
     new_file = "#{next_number}-#{strip_title}.md"
-    File.open(File.join(@dir, new_file), 'w') do |file|
+    @path = File.join(@dir, new_file)
+    File.open(@path, 'w') do |file|
       file.write initial_content
     end
 
     Editor.open new_file
   end
 
+  def self.from_path(path)
+    title = File.open(path) { |f| f.gets }.strip
+    dir = File.dirname path
+    Post.new dir, title, path
+  end
 private
 
   # for hungarian at the moment

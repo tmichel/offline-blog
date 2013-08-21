@@ -40,3 +40,21 @@ the title on the top of the file.
 
 At the moment it uses the `sublime` command to open the editor. If the command
 is not available nothing happens.
+
+Example:
+
+    $ blog new "My awesome post"
+
+### blog read [POST]
+
+Starts the inclduded web interface and opens the browser. If a post was given it
+tries to open it. If it could not be found the home page will open as would
+normally do.
+
+Example:
+
+    # start home page
+    $ blog read
+
+    # read specfic post
+    $ blog read 001-my-first-awesome-post.md

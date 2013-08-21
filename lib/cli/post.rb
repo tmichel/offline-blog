@@ -1,5 +1,5 @@
 # encoding: utf-8
-require "editor"
+require "cli/editor"
 
 # Class to represent posts. A post is basically a text file.
 class Post

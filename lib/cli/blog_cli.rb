@@ -1,7 +1,7 @@
 require "rubygems"
 require "bundler/setup"
 require "thor"
-require "post"
+require "cli/post"
 
 class BlogCLI < Thor
   desc "new TITLE", "Creates a new blog post with the specfied title."

@@ -4,6 +4,6 @@ path = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 lib = File.expand_path(File.join(File.dirname(path), '..', 'lib'))
 
 $LOAD_PATH.unshift lib
-require 'blog_cli'
+require 'cli/blog_cli'
 
 BlogCLI.start(ARGV)

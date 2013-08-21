@@ -1,5 +1,8 @@
 <h1>List of posts</h1>
 <div id="posts-container">
+  <% if @posts.empty? %>
+    No post found. Create one with <code>blog new "My awesome post"</code>
+  <% end %>
   <% @posts.each do |id, title| %>
     <div class="post">
       <a href="/entry/<%= id %>"><%= title %></a>

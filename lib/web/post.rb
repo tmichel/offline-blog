@@ -29,7 +29,7 @@ module Web
 
     def self.list(dir)
       posts = {}
-      Dir[File.join dir, "*.md"].each do |f|
+      Dir[File.join dir, "*.md"].sort.each do |f|
         /\d{3,}/.match(f) do
           |m| posts[m.to_s] = File.open(f) { |file| file.gets }
         end

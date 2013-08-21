@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 require "spec_helper"
-require "lib/post"
+require "lib/cli/post"
+
+include CLI
 
 describe Post do
   describe "stripped title" do

@@ -6,4 +6,4 @@ lib = File.expand_path(File.join(File.dirname(path), '..', 'lib'))
 $LOAD_PATH.unshift lib
 require 'cli/blog_cli'
 
-BlogCLI.start(ARGV)
+CLI::BlogCLI.start(ARGV)

@@ -47,7 +47,7 @@ Example:
 
 ### blog read [POST]
 
-Starts the inclduded web interface and opens the browser. If a post was given it
+Starts the included web interface and opens the browser. If a post was given, it
 tries to open it. If it could not be found the home page will open as would
 normally do.
 

@@ -11,7 +11,7 @@ module Web
       @dir = dir
       @content = nil
       @title = nil
-      @date = nil
+      @date = DateTime.now
 
       load
     end
@@ -40,7 +40,10 @@ module Web
 private
     def load
       posts = Dir[File.join(@dir, "#{@number}*")]
-      if posts.size > 1
+      if posts.empty?
+        @content = "There is no post with number #{@number}."
+        @title = "Not found"
+      elsif posts.size > 1
         @content = "Ambiguous post number, please clean it up first."
         @title = "Error - ambiguous post number"
       else

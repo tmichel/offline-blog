@@ -3,8 +3,10 @@ require "web/post"
 
 if development?
   require "sinatra/reloader"
-  also_reload "lib/web/post.rb"
+  also_reload File.join(File.dirname(__FILE__), "post.rb")
 end
+
+set :bind, '127.0.0.1'
 
 get "/" do
   @posts = Web::Post.list Dir.pwd

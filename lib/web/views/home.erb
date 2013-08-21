@@ -5,6 +5,7 @@
   <% end %>
   <% @posts.each do |id, title| %>
     <div class="post">
+      <%= id %> -
       <a href="/entry/<%= id %>"><%= title %></a>
     </div>
   <% end %>

@@ -22,7 +22,7 @@ module CLI
     def read(post = nil)
       m = /\d{3,}/.match(post)
       tail = "/entry/#{m}" if post && m
-      Sinatra::Application.run! :port => 4004 do |server|
+      Sinatra::Application.run! :port => 4004, :environment => :production do |server|
         system "x-www-browser http://localhost:4004#{tail} &"
       end
     end

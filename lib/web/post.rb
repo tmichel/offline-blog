@@ -11,13 +11,25 @@ module Web
       @dir = dir
       @content = nil
       @title = nil
-      @date = DateTime.now
+      @filename = nil
 
       load
     end
 
     def date
-      @date.strftime "%Y.%m.%d %H:%M"
+      return nil unless @filename
+
+      if ::HAS_GIT
+        raw_date = /Date:(.*)\n/.match `git log --format=medium #{@filename}`
+        puts raw_date[1].strip
+        date = DateTime.parse raw_date[1].strip
+      else
+        # without a git repository fall back to file modification time
+        # hopefully it's accurate...
+        date = File.new(full_path).mtime
+      end
+
+      date.strftime "%Y.%m.%d %H:%M"
     end
 
     def render
@@ -25,6 +37,10 @@ module Web
                                          :autolink => true,
                                          :space_after_headers => true
       markdown.render @content
+    end
+
+    def full_path
+      File.join @dir, @filename
     end
 
     def self.list(dir)
@@ -49,8 +65,7 @@ private
       else
         @content = File.read posts.first
         @title = @content.lines.first.chomp
-        # TODO: get time from git commit if available
-        @date = File.new(posts.first).mtime
+        @filename = File.basename posts.first
       end
     end
   end

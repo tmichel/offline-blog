@@ -9,7 +9,11 @@ module CLI
     desc "new TITLE", "Creates a new blog post with the specfied title."
     def new(title)
       post = Post.new Dir.pwd, title
-      post.create!
+      new_file = post.create!
+
+      puts "\033[35mcreated\033[0m\t#{new_file}"
+
+      Editor.open new_file
     end
 
     desc "read [POST]", "Start the webserver and open the browser."

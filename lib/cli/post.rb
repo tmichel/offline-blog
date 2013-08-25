@@ -29,7 +29,7 @@ module CLI
         file.write initial_content
       end
 
-      Editor.open new_file
+      new_file
     end
 
     def self.from_path(path)

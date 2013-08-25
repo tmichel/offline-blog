@@ -22,4 +22,4 @@ get %r{/entry/(\d{3,})} do |num|
 end
 
 # check for git install and existing repo in working dir
-HAS_GIT = OS.command? "git branch"
+HAS_GIT = OS.command? "git" && system("git branch > /dev/null 2>&1")

@@ -58,3 +58,7 @@ Example:
 
     # read specfic post
     $ blog read 001-my-first-awesome-post.md
+
+## License
+
+MIT. See `LICENSE` file.

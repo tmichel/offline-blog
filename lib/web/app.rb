@@ -1,5 +1,6 @@
 require "sinatra"
 require "web/post"
+require "util/os"
 
 if development?
   require "sinatra/reloader"
@@ -19,3 +20,6 @@ get %r{/entry/(\d{3,})} do |num|
 
   erb :post
 end
+
+# check for git install and existing repo in working dir
+HAS_GIT = OS.command? "git branch"

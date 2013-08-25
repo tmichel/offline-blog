@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require "spec_helper"
-require "lib/cli/post"
+require "cli/post"
 
 include CLI
 

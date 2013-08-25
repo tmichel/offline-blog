@@ -1,10 +1,13 @@
 require "redcarpet"
+require "date"
 
 module Web
   # A post that is represented by a number which is related a file.
   # The number should be unique, but it is not enforced
   class Post
-    attr_reader :title
+    attr_reader :title, :number, :dir, :filename, :content
+
+    DATE_FORMAT = "%Y.%m.%d %H:%M"
 
     def initialize(dir, num)
       @number = num
@@ -20,16 +23,14 @@ module Web
       return nil unless @filename
 
       if ::HAS_GIT
-        raw_date = /Date:(.*)\n/.match `git log --format=medium #{@filename}`
-        puts raw_date[1].strip
-        date = DateTime.parse raw_date[1].strip
+        date = DateTime.parse raw_date
       else
         # without a git repository fall back to file modification time
         # hopefully it's accurate...
         date = File.new(full_path).mtime
       end
 
-      date.strftime "%Y.%m.%d %H:%M"
+      date.strftime DATE_FORMAT
     end
 
     def render
@@ -47,13 +48,18 @@ module Web
       posts = {}
       Dir[File.join dir, "*.md"].sort { |a,b| b <=> a }.each do |f|
         /\d{3,}/.match(f) do
-          |m| posts[m.to_s] = File.open(f) { |file| file.gets }
+          |m| posts[m.to_s] = File.open(f) { |file| file.gets.strip }
         end
       end
       posts
     end
 
 private
+    def raw_date
+      raw = /Date:(.*)\n/.match `git log --format=medium #{@filename}`
+      raw[1].strip
+    end
+
     def load
       posts = Dir[File.join(@dir, "#{@number}*")]
       if posts.empty?
@@ -64,7 +70,7 @@ private
         @title = "Error - ambiguous post number"
       else
         @content = File.read posts.first
-        @title = @content.lines.first.chomp
+        @title = @content.lines.first.strip
         @filename = File.basename posts.first
       end
     end

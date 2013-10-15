@@ -57,7 +57,9 @@ module Web
 private
     def raw_date
       raw = /Date:(.*)\n/.match `git log --format=medium #{@filename}`
-      raw[1].strip
+      # fix for #1, in case the file is not in the repo
+      # return the current time
+      raw ? raw[1].strip : DateTime.now.to_s
     end
 
     def load
